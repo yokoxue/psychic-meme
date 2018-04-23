@@ -1,0 +1,86 @@
+This is BibTeX, Version 0.99dThe top-level auxiliary file: template-xy.aux
+The style file: seuthesis.bst
+Database file #1: seuthesis.bib
+You're missing a string name---line 3 of file seuthesis.bib
+ : @string{
+ :         {IEEE} Trans. Wireless Commun.= "{IEEE} Trans. Wireless Commun."}
+I'm skipping whatever remains of this command
+I was expecting an "="---line 4 of file seuthesis.bib
+ : @string{ieee 
+ :              Transactions on Communications= "{IEEE}  Trans. Commun."}
+I'm skipping whatever remains of this command
+I was expecting an "="---line 5 of file seuthesis.bib
+ : @string{ieee 
+ :              Signal Processing Magazine= "{IEEE} Signal Process. Mag."}
+I'm skipping whatever remains of this command
+I was expecting an "="---line 6 of file seuthesis.bib
+ : @string{ieee 
+ :              Transactions on Information Theory= "{IEEE}  Trans. Inf. Theory"}
+I'm skipping whatever remains of this command
+I was expecting an "="---line 7 of file seuthesis.bib
+ : @string{ieee 
+ :              Communications Magazine      = "{IEEE} Commun. Mag."}
+I'm skipping whatever remains of this command
+I was expecting an "="---line 8 of file seuthesis.bib
+ : @string{ieee 
+ :              Communications Surveys \& Tutorials= "{IEEE} Commun. Surveys Tuts."}
+I'm skipping whatever remains of this command
+I was expecting an "="---line 9 of file seuthesis.bib
+ : @string{ieee 
+ :              Journal of Selected Topics in Signal Processing      = "{IEEE} J. Sel. Topics Signal Process."}
+I'm skipping whatever remains of this command
+I was expecting an "="---line 10 of file seuthesis.bib
+ : @string{ieee 
+ :              Transactions on Vehicular Technology      = "{IEEE} Trans. Veh. Technol."}
+I'm skipping whatever remains of this command
+I was expecting an "="---line 11 of file seuthesis.bib
+ : @string{ieee 
+ :              Transactions on Circuits and Systems I: Regular Papers      = "{IEEE} Trans. Circuits Syst. I, Reg. Papers"}
+I'm skipping whatever remains of this command
+You're missing a string name---line 12 of file seuthesis.bib
+ : @string{
+ :         {IEEE} J. Solid-State Circuits.      = "{IEEE} J. Solid-State Circuits."}
+I'm skipping whatever remains of this command
+I was expecting an "="---line 13 of file seuthesis.bib
+ : @string{ieee 
+ :              Transactions on Circuits and Systems II: Analog and Digital Signal Processing      = "{IEEE} Trans. Circuits Syst. II, Analog Digit. Signal"}
+I'm skipping whatever remains of this command
+I was expecting an "="---line 14 of file seuthesis.bib
+ : @string{ieee 
+ :              Transactions on Computers      = "{IEEE}  Trans. Comput."}
+I'm skipping whatever remains of this command
+You're missing a string name---line 15 of file seuthesis.bib
+ : @string{
+ :         {IEEE} Trans. Commun.      = "{IEEE}  Trans. Commun."}
+I'm skipping whatever remains of this command
+You're missing a string name---line 16 of file seuthesis.bib
+ : @string{
+ :         {IEEE} Trans. Commun.      = "{IEEE}  Trans. Commun."}
+I'm skipping whatever remains of this command
+You're missing a string name---line 17 of file seuthesis.bib
+ : @string{
+ :         {IEEE} Trans. Commun.      = "{IEEE}  Trans. Commun."}
+I'm skipping whatever remains of this command
+You're missing a string name---line 18 of file seuthesis.bib
+ : @string{
+ :         {IEEE} Trans. Commun.      = "{IEEE}  Trans. Commun."}
+I'm skipping whatever remains of this command
+You're missing a string name---line 19 of file seuthesis.bib
+ : @string{
+ :         {IEEE} Trans. Commun.      = "{IEEE}  Trans. Commun."}
+I'm skipping whatever remains of this command
+You're missing a string name---line 20 of file seuthesis.bib
+ : @string{
+ :         {IEEE} Trans. Commun.      = "{IEEE}  Trans. Commun."}
+I'm skipping whatever remains of this command
+Repeated entry---line 311 of file seuthesis.bib
+ : @article{rusek2013scaling
+ :                          ,
+I'm skipping whatever remains of this entry
+You can't pop an empty literal stack for entry paulraj2003introduction
+while executing---line 3540 of file seuthesis.bst
+You can't pop an empty literal stack for entry boyd2004convex
+while executing---line 3540 of file seuthesis.bst
+You can't pop an empty literal stack for entry horn2012matrix
+while executing---line 3540 of file seuthesis.bst
+(There were 22 error messages)

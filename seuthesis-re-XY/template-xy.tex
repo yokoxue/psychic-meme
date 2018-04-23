@@ -1,0 +1,345 @@
+\documentclass[bachelor,oneside]{seuthesis} % 本科
+% \documentclass[master]{seuthesis} % 硕士
+% \documentclass[doctor]{seuthesis} % 博士
+% \documentclass[engineering]{seuthesis} % 工程硕士
+\usepackage{CJK,CJKnumb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+\usepackage{bm}
+\usepackage{graphicx}
+\usepackage[para]{threeparttable}
+%\usepackage[ruled,linesnumbered]{algorithm2e}
+%\renewcommand{\algorithm}{算法}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{setspace}%
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\floatname{algorithm}{算法}
+\usepackage{subfigure}
+\usepackage{listings}
+\lstset{language=Matlab}%代码语言使用的是matlab
+\lstset{breaklines}%自动将长的代码行换行排版
+\lstset{extendedchars=false}%解决代码跨页时，章节标题，页眉等汉字不显示的问题
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{color}
+\usepackage{colortbl}
+\usepackage{hyperref}
+\usepackage{extarrows}
+\usepackage{fancynum}
+\definecolor{mygray}{gray}{.9}
+\setfnumgsym{\allowbreak}
+\setlength{\baselineskip}{20pt}
+\usepackage{fancyhdr}
+
+
+\begin{document}
+\begin{spacing}{1.5}%%
+\newtheorem{myDef}{定义}
+\newtheorem{lemma}{引理}
+\newtheorem{theorem}{定理}
+\newtheorem{proof}{证明}
+
+
+\categorynumber{000} % 分类采用《中国图书资料分类法》
+\UDC{000}            %《国际十进分类法UDC》的类号
+\secretlevel{公开}    %学位论文密级分为"公开"、"内部"、"秘密"和"机密"四种
+\studentid{61313103}   %学号要完整，前面的零不能省略。
+\title{\centerline{5G移动通信大规模MIMO检测}\newline{\centerline{算法与实现研究}}}{}{Research on Algorithm and Implementation  for Massive MIMO Detection in 5G Mobile Communication}{subtitle}
+\author{薛\quad{}烨}{Ye Xue}
+\advisor{张\quad{}川}{副教授}{Chuan Zhang}{Associate Prof.}
+\coadvisor{尤\quad{}肖\quad{}虎}{}{Co-advisor's Name}{Prof.} % 没有
+                                % 可以不填
+% \degree{工学硕士} % 详细学位名称
+\major[12em]{信息工程}
+\defenddate{答辩日期}
+\authorizedate{学位授予日期}
+\department{吴健雄学院}{department name}
+\duration{2016.12—2017.6}
+\address{无线谷A1315}
+\maketitle
+
+\thispagestyle{seufrontstyle}
+\begin{abstract}{大规模多输入多输出, 条件数， 预处理， 收敛分析， 迭代检测， 现场可编程门阵列。}
+	
+  新兴的大规模多输入多输出“Large-Scale Multiple-Input Multiple-Output”（LS-MIMO）又称“ Massive MIMO”（M-MIMO）系统已经成为下一代移动通信中的关键技术和目前移动通信领域的热门话题。这一项技术依赖于极高维度的天线阵列。与如今的多天线系统，如可以允许基站端8根天线配置的第四代（4G-LTE）移动通信系统相比，大规模MIMO系统的基站端需要相当大数量的天线，例如100或更多。然而，天线增多不仅带来了频谱效率，能量效率，链路广度的增加，也加大了系统的复杂度。尤其是在接收端，天线维数增大带来的干扰为最优检测带来了极其高的复杂度，经证明，最优大规模MIMO 检测问题是非多项式时间复杂度的（NP-hard）。基于此，本文着力关注于设计一种保证检测性能并能最大程度降低系统复杂度的大规模MIMO检测算法，以及其硬件实现。
+  ...
+
+
+\end{abstract}
+
+\begin{englishabstract}{Massive MIMO, Condition number, Precondition, Convergence theory, Iterative linear detection, FPGA.}
+\thispagestyle{seufrontstyle}
+  The emerging technology, Large Scale-Multiple-Input Multiple-Output (LS-MIMO), also called "Massive MIMO" (M-MIMO), has been regarded as the key part of the next generation communication system and thus been widely studied in this field. LS-MIMO  highly relies on the large scale antennas array. Compared with current MIMO system (i.e. $8$ antennas equipped at the base station in 4G-LTE system), LS-MIMO considers a much higher orders (more that a hundred) of antennas at base station (BS), therefore, promises significant improvements in terms of spectral efficiency, link reliability, and coverage over small-scale MIMO systems. However, it also introduces a prohibitively high complexity to the system, especially at the receiver.  One of the associated issues that prevents the industry to distribute massive MIMO network is the overwhelming detection complexity as the order of massive MIMO configuration expands. It has been proven in literatures that the optimum MIMO detection problem is non-deterministic polynomial-time hard (NP-hard). Based on the aforementioned issues, in this  paper, we focus on the balance of performance and complexity with both algorithm design and hardware implementation.
+
+ ...
+\end{englishabstract}
+
+\tableofcontents
+\thispagestyle{seunolabelstyle}
+
+\begin{terminology}
+
+\centerline{\bf {\Large 常用英文缩写}}
+\begin{table}[!hbp]\centering
+
+%\caption{\Large 常用英文缩写}
+\begin{tabular}{lll}
+5G & the fifth Generation&第五代移动通信系统 \\
+4G & the fourth Generation&第四代移动通信系统 \\
+ASIC&Application Specific Integrated Circuit&专用集成电路\\
+BS&Base Station&基站\\
+....
+\end{tabular}
+\end{table}
+
+
+
+
+
+\clearpage
+\thispagestyle{seufrontstyle}
+
+ \begin{table}[!hbp]\centering% \caption{\Large 常用数学符号}
+  \centerline{\bf {\Large 常用数学符号}}
+ \begin{tabular}{ll}
+  &\\
+  $(\cdot)^T$&矩阵或向量的转置\\
+  $(\cdot)^H$&矩阵或向量的共轭转置\\
+  $\mathbf{M}$&矩阵$\mathbf{M}$\\
+  ....
+
+
+
+
+
+
+
+
+
+ \end{tabular}
+ \end{table}
+\end{terminology}
+
+\begin{Main} % 开始正文
+\pagestyle{seustyle}
+\chapter{绪论} \label{chapter:1}
+\section{研究背景}
+随着信息产业的发展，无线数据将会在未来一段时间内持续爆炸式增长。2014 年2月VNI报告
+\section{大规模MIMO系统}
+大规模多输入多输出（LS-MIMO）是下一代移动通信中一个新兴的技术\cite{marzetta2010noncooperative}，在这种系统中，基站利用其装配的数百根天线在同一个频带中服务多种类型的用户\cite{ngo2013energy,huh2012achieving,rusek2013scaling}。
+
+
+
+
+
+
+\section{大规模MIMO检测}
+在MIMO系统，多个用户的符号或者单个用户的多个符号在发射端发出，而在接收机处，这些受到随机噪声污染的具有其他符号干扰的符号则需要被检测。这多个符号可以单独地或联合地检测。 与独立检测不同，在联合检测中，每个符号在检测时必须考虑其他符号的特性。 因此，联合检测通常能够实现比单独检测更好的性能，这就需要付出高计算复杂度的代价。
+
+
+\section{研究现状}
+一般来说，MIMO检测的任务是，当原始信号通过一个传递函数由非正交列的矩阵描述的线性系统后被附加随机噪声污染，在接收端，检测器需要对原始信号进行还原\cite{yang2015fifty}。传统的MIMO检测技术已经被广泛的研究，本文通过其检测最终达到的性能将其划分为线性和非线性两种。\reffig{fig:over}展示了很多已知的检测方法。
+
+\section{本文的工作}
+\subsection{本文的主要贡献}
+\subsubsection{检测算法方面}
+
+
+\subsubsection{硬件设计方面}
+
+\subsection{篇章结构}
+在\refchapter{chapter:2}中，...
+\chapter{大规模MIMO上行链路检测模型}\label{chapter:2}
+
+\section{系统模型}
+
+
+\section{信道模型}\label{sec:chm}
+在以往的研究中， 为了方面讨论，研究LS-MIMO的工作主要针对独立同分布（i.i.d）的理想瑞利平坦衰落信道和小系统负载的情况（通常讨论基站配有128 根天线，同时接受8个数据流），并没有考虑到信道的相关性和中高负载的情况。这两种假设，我们这里均认为是非理想信道情况， 这些都严重影响了均衡矩阵的数学特性，从而使得以往的检测方法具有局限性。由于目前对于大规模 MIMO 系统信道的数学模型并未有统一的规范化表达。大部分工作仅仅讨论了理想信道，这在5G的真实场景中是远远不够的。而对于单纯的研究大规模MIMO检测来说，完整的较能反映真实场景的信道模型是研究的基础。
+
+
+\section{检测模型}
+\subsection{MMSE检测模型}
+对于\refequ{eq:MIMO}中的模型，通过求解如下最大似然（ML）问题来实现最小化符号误码率的最优数据检测
+\cite{paulraj2003introduction}。
+
+
+\subsection{二次优化检测模型}\label{sec:quad}
+我们先将复数域上的MIMO检测问题 （\refequ{eq:MIMO}），通过实值分解(RVD) 得到维数为其二倍的实数表达：
+\begin{eqnarray}
+ \overline{\mathbf{y}}= \overline{\mathbf{H}} \overline{\mathbf{s}}+ \overline{\mathbf{n}}
+\end{eqnarray}\label{eq:MIMORE}
+其中，
+\begin{align*}
+ \overline { {\mathbf {y}}}&= \left [{{\begin{array}{c} \Re ({\mathbf {y}}) \\ \Im ({\mathbf {y}}) \end{array}}}\right ], \quad \overline { {\mathbf {H}}} = \left [{{\begin{array}{cc} \Re ({\mathbf {H}}) & -\Im ({\mathbf {H}}) \\ \Im ({\mathbf {H}}) & \Re ({\mathbf {H}}) \end{array}}}\right ], \\ \overline { {\mathbf {s}}}&= \left [{{\begin{array}{c} \Re ({\mathbf {s}}) \\ \Im ({\mathbf {s}}) \end{array}}}\right ],\quad \overline { {\mathbf {n}}} = \left [{{\begin{array}{c} \Re ({\mathbf {n}}) \\ \Im ({\mathbf {n}}) \end{array}}}\right ]\!.
+\end{align*}
+下面我们将对应的ML问题：
+\begin{equation} \label{eq:MLr}
+\tilde { {\mathbf {s}}}^{\text {ML}} = \mathop {\mathrm {arg\;min}} _{ \overline{\mathbf {s}}\in \mathcal{O} ^U} \| \overline{\mathbf {y}}- \overline{\mathbf {H}} \overline{\mathbf {s}}\|_{2}^{2}.
+ \end{equation}
+
+的有限字母约束$ \overline {\mathbf{s}}\in \mathcal{O} ^U$ 放宽到$ \overline{\mathbf{s}}$ 属于围绕星族集的凸包
+\cite{boyd2004convex}，即：
+$\overline{\mathbf{s}}\in \mathcal {C}_{\mathcal{O} ^U}$ ， 其中
+\begin{equation}
+{ {\mathcal {C}}_ {\mathcal{O} ^U}= \left \{{{\sum _{i=1}^{ {\left |{{ {\mathcal{O} ^U}}}\right |}}\theta _{i} s_{i} {\,|\,}(s_{i} \in\mathcal{O} ^U, \theta _{i}\geq 0, \theta _{i} \in \mathbb {R},\forall i) \wedge \sum _{i=1}^{ {\left |{{ \mathcal{O}^U}}\right |}}\theta _{i}=1}}\right \}\!.}
+ \end{equation}\label{eqn:qam}
+ 对于本文中使用的QAM调制，其${\mathcal {C}}_ {\mathcal{O} ^U}=\{(x_{r}, x_{i})|x_{r}\in[-a,a]\cap x_{r}\in[-a,a]\}$， 而$a=\max_{a'\in {\mathcal{O} ^U}}\Re{\{a\}}$.
+
+最后我们得到MIMO检测的 {\bf 盒式约束(BOX constriant) 二次优化}形式表达：
+\begin{equation}
+\tilde { {\mathbf {s}}}^{\text {REC}} = \mathop {\mathrm {arg\;min}} _{\overline{\mathbf {s}}\in \mathcal {C}_{\mathcal{O} ^U}} \| \overline{\mathbf {y}}- \overline{\mathbf {H}}\overline {\mathbf {s}}\|_{2}^{2}.
+\end{equation}\label{eq:boxc}
+
+盒式约束实质上是在二维空间的一个多面体（即多边形），因此该约束可以写成一个线性约束，进而通过数学推导，我们了可以得到一个 {\bf 线性约束二次优化}模型：
+\begin{equation}\label{eqn:bp}
+\begin{aligned}
+& \underset{\tilde{\mathbf{s}}}{\text{minimize}}
+& & \| \overline{\mathbf {y}}- \overline{\mathbf {H}}\overline {\mathbf {s}}\|_{2}^{2}, \\
+& \text{subject to}
+& &\mathbf{q}\overline {\mathbf {s}}^T-\mathbf{T}\preceq \mathbf{0} .
+\end{aligned}
+\end{equation}
+
+这里 $\mathbf{q}=(1,-1)^T$，  $\mathbf{T}=(a,-a)^T\bigotimes \mathbf{e}_{2U}^T$, $\mathbf{e}_{2U}$为$2U$维全1列向量，$\bigotimes$ 表示二者的Kronecker积。
+
+进一步，我们可以在\refequ{eqn:bp}中的优化目标函数后加上噪声惩罚项 $N_{0}\| \overline {\mathbf {{s}}}\|^{2}_{2}$ 从而得到对应优化问题的MMSE形式。
+\begin{equation}\label{eqn:bpmmse}
+\begin{aligned}
+& \underset{\tilde{\mathbf{s}}}{\text{minimize}}
+& & \| \overline{\mathbf {y}}- \overline{\mathbf {H}}\overline {\mathbf {s}}\|_{2}^{2}+N_{0}\| \overline {\mathbf {{s}}}\|^{2}_{2}, \\
+& \text{subject to}
+& &\mathbf{q}\overline {\mathbf {s}}^T-\mathbf{T}\preceq \mathbf{0} .
+\end{aligned}
+\end{equation}
+
+
+本节给出的LS-MIMO检测模型是全文设计的基础，随后的算法设计以及硬件设计都围绕本节所建立的问题模型展开。由于针对本文所研究的LS-MIMO检测问题，\refequ{eqn:bp}和 \refequ{eqn:bpmmse}实质上等价于一个MMSE检测问题但具有更广泛和更规范的表达。因此在后文的讨论中，我们主要围绕\refequ{eqn:bp}和 \refequ{eqn:bpmmse}展开。
+\chapter{基于迭代下降法的检测}\label{chapter:3}
+
+本章首先对于上一章所建立的LS-MIMO检测模型进行分析，分析传统应对策略的优缺点，并针对LS-MIMO的二次优化模型，将应对这种模型的一类有效算法迭代下降法应用到LS-MIMO检测问题上。并基于LS-MIMO检测问题的约束条件，对传统的迭代下降法进行改进。通过数值仿真证明的利用约束条件的改进算法在性能上的提升。最后依据仿真结果并结合随机矩阵的相关知识，给出了影响迭代下降法在LS-MIMO检测中表现的数学因素和物理本质。为后续进一步的算法改进奠定了理论和实验基础。
+\section{迭代下降法进行LS-MIMO检测的可行性}
+在上一章所建立的检测模型（\refequ{eqn:bp}，\refequ{eqn:bpmmse}），若消除其约束条件，则问题将转为一个无约束二次优化问题。其最小值可以通过直接对二次函数求导获得，分别对\refequ{eqn:bp}和\refequ{eqn:bpmmse}求导可得：
+
+\begin{table}[htbp]\centering
+\caption{式 （\ref{eqn:jd}）的参数取值 }\label{tab:1}
+\begin{tabular}{|c|c|c|c|c|}
+  \hline
+  % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+ &$K$ &$\mathbf {\phi}({\mathbf \lambda})$ &$\mathbf {\psi}({\mathbf \lambda})$& $\xi(\lambda)$ \\
+ \hline
+  中心非相关& $K_{uc}=\big[\prod_{i=1}^U(B-i)!\prod_{j=1}^U(U-j)!\big]^{-1}$&
+   $\mathbf{V}_1(\mathbf{\lambda})$& $\mathbf{V}_1(\mathbf{\lambda})$ &$ \lambda^{B-U}e^{-\lambda}$ \\
+   \hline
+  中心相关&$K_{cc}=\prod_{i=1}^{U}\frac{1}{\sigma_i^B(B-i)!}\prod_{i<j}^U\frac{\sigma_i\sigma_j}{\sigma_j-\sigma_i}$&
+  $\mathbf{V}_1(\mathbf{\lambda})$  & $\mathbf{E}(\mathbf{\lambda}, \mathbf{\sigma})$&$\lambda^{B-U}$\\
+  \hline
+\end{tabular}
+\end{table}
+
+表中$\mathbf{V}_1(\mathbf{\lambda})$是Vandermonde矩阵\cite{horn2012matrix}，其第$i$- 行第$j$-列元素为$\lambda_j^{i-1}$。$(\sigma_1>\sigma_2>\ldots>\sigma_U)$ 是相关矩阵$\mathbf{R}$的特征值。$\mathbf{E}(\mathbf{\lambda}$的第$i$- 行第$j$-列元素为$e^{(-\lambda_j/\sigma_i)}$。
+
+
+
+\begin{algorithm}[htbp]
+\caption{改进的自适应阈值预处理算法}
+\begin{algorithmic}[1]
+\REQUIRE~$\mathbf A$
+\STATE ${\mathbf D_{(1,1)} }=\mathbf{A}_{(1, 1)},$
+\FOR{$2 \leq i \leq U$ and $\mathbf{A}_{(i,j)} \geq \eta $}\label{alg:d1}
+\FOR{$1 \leq j \leq i-1$}
+\STATE $\mathbf{t}_{(i,j)}= {\mathbf{A}_{(i,j)}} -\sum_{k=1}^{j-1}{\mathbf {t}_{(i,k)}\mathbf{L}_{(j,k)}}$\label{alg:mac1}
+\STATE $\mathbf{L}_{(i,j)}= {\mathbf t_{(i,j)}}/{\mathbf D_{(j,j)}}$,\label{alg:sc}
+\ENDFOR
+\STATE $\mathbf{D}_{(i,i)}={\mathbf A_{(i,i)}} -\sum_{k=1}^{i-1}{\mathbf{t}_{(i,k)}\mathbf{L}_{(i,k)}}$\label{alg:mac2}
+\ENDFOR
+\ENSURE ~$\mathbf{L}$ and $\mathbf{D}$.
+\end{algorithmic}\label{alg:ldl}
+\end{algorithm}
+
+
+
+\chapter{总结与展望}\label{chapter:6}
+
+
+\section{工作总结}
+
+本篇文章主要对LS-MIMO上行链路的检测算法进行了研究与实现，主要针对二次优化检测模型，将传统下降搜索法进行了增加约束的优化和自适应阈值预处理的优化，给出了相应的收敛性分析与相关硬件设计与实现。
+
+
+
+\section{工作展望}
+现阶段对LS-MIMO检测算法及相关实现已经取得了阶段性的成果。下一步的工作将分两部分进行，除了对LS-MIMO检测算法进行进一步的实现外，还将结合信道估计使得整个5G系统中的接收机性能更加完整。
+
+1）基于现有工作的进一步实现：
+主要目标将聚焦于将本文提出的检测算法和检测器设计在实际硬件平台上的实现运用，并对性能作出分析和优化以满足实际需求。
+主要的实现平台为：
+\begin{itemize}
+\item FPGA+XEON平台
+
+\item 基于通用服务器的5G平台
+
+\item 基于NI USRP RIO的5G平台
+\end{itemize}
+
+2）联合信道估计与检测
+无论是本文还是其他关注于接收机检测的相关工作，均离不开在接收端已知信道信息这一假设。因此对于信道信息的获取尤为关键。而在通信系统中上下行链路检测所面临的问题又有所不同。（附录\ref{mmAPDS}给出了几种mmWAVE信道下，本文提出的检测方法的性能及分析）
+\begin{itemize}
+  \item 上行链路（UL）：现有的基于导频获取信道信息的方式，在LS-MIMO情况下将面临前所未有的挑战。根据传统的正交训练策略，
+  正交训练序列的所需数量以及训练序列的长度应至少为发射天线的数量。因此，当用户的数量（可能具有多于一个天线）显着增长时，
+  可能存在正交训练序列不足以将不同用户的上行信道估计分离的情况，也就是说导频不够用的情况。
+  如果重复使用相同的训练序列或采用非正交训练序列，则在信道估计阶段将出现用户间干扰，这被称为导频污染。
+  \item 下行链路（DL）：类似于UL情况，DL所需的训练数量也需要与BS上的天线数量相当，
+  因此BS可能没有足够数量的正交训练序列来分离DL信道。
+   另外，由于较短的通道相干时间，传统的DL训练策略也可能失败。
+    同时，从用户到BS的CSI反馈需要用通同天线的数量等量，以控制量化误差，这对于在LS-MIMO中的实现是一个沉重的负担。
+\end{itemize}
+
+因此，我们将视角关注到一些新的联合预编码信道估计的手段，以帮助我们进行接收端的信号检测。或者我们可以寻求一种联合预编码信道估计和信号检测的设计，从整个系统层面考虑LS-MIMO检测的更高效实现。
+
+\chapter{工作创新点}\label{chapter:7}
+1）实现了可兼容硬判决和软判决两种检测的完整的LS-MIMO 系统级仿真平台，适用于不同信道场景、码率以及星座维度，可完成各种参数配置的LS-MIMO检测系统仿真；
+
+
+
+
+\end{Main}
+
+
+\begin{Acknowledgement}
+转眼间，大学四年就这样剧终。这样一份对我自己来说相对满意毕业设计也是我送给自己的毕业礼物。在四年的大学时光里，我用了近两年的时间来进行科学研究。
+
+
+\end{Acknowledgement}
+
+\bibliography{seuthesis}
+
+\end{spacing}
+\begin{Appendix}
+
+
+\end{Appendix}
+
+\newpage
+\printindex % 索引
+
+\begin{Resume}
+ \begin{wrapfigure}{l}{4.5cm}
+   \vspace{-27pt}
+   \begin{center}
+     \includegraphics[width=4cm]{resume.pdf}
+   \end{center}
+   \vspace{-20pt}
+ %  \caption{A gull}
+ %  \vspace{-10pt}
+ \end{wrapfigure}
+ \noindent
+ 薛烨，
+\clearpage
+
+\clearpage
+\end{Resume}
+\end{document}

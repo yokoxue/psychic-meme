@@ -1,0 +1,53 @@
+\begin{thebibliography}{8}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Marzetta(2010)]{marzetta2010noncooperative}
+Marzetta T~L.
+\newblock Noncooperative cellular wireless with unlimited numbers of base
+  station antennas[J].
+\newblock {IEEE} Trans. Wireless Commun., 2010, 9(11):3590--3600.
+
+\bibitem[Ngo et al.(2013)]{ngo2013energy}
+Ngo H~Q, Larsson E~G, Marzetta T~L.
+\newblock Energy and spectral efficiency of very large multiuser MIMO
+  systems[J].
+\newblock {IEEE} Trans. Commun., 2013, 61(4):1436--1449.
+
+\bibitem[Huh et al.(2012)]{huh2012achieving}
+Huh H, Caire G, Papadopoulos H~C, et al.
+\newblock Achieving" massive MIMO" spectral efficiency with a not-so-large
+  number of antennas[J].
+\newblock {IEEE} Trans. Wireless Commun., 2012, 11(9):3226--3239.
+
+\bibitem[Rusek et al.(2013)]{rusek2013scaling}
+Rusek F, Persson D, Lau B~K, et al.
+\newblock Scaling up MIMO: Opportunities and challenges with very large
+  arrays[J].
+\newblock IEEE Signal Processing Magazine, 2013, 30(1):40--60.
+
+\bibitem[Yang and Hanzo(2015)]{yang2015fifty}
+Yang S, Hanzo L.
+\newblock Fifty years of MIMO detection: The road to large-scale MIMOs[J].
+\newblock {IEEE} Commun. Surveys Tuts., 2015, 17(4):1941--1988.
+
+\bibitem[Paulraj et al.(2003)]{paulraj2003introduction}
+Paulraj A, Nabar R, Gore D.
+\newblock
+\newblock Introduction to space-time wireless communications[M].[S.l.]:
+  Cambridge university press, 2003.
+
+\bibitem[Boyd and Vandenberghe(2004)]{boyd2004convex}
+Boyd S, Vandenberghe L.
+\newblock
+\newblock Convex optimization[M].[S.l.]: Cambridge university press, 2004.
+
+\bibitem[Horn and Johnson(2012)]{horn2012matrix}
+Horn R~A, Johnson C~R.
+\newblock
+\newblock Matrix analysis[M].[S.l.]: Cambridge university press, 2012.
+
+\end{thebibliography}
